@@ -5,13 +5,13 @@ decode_results results;
 #define IR_RECEIVE_PIN 11
 
 
-int led1 = 6;
-int led2 = 5;
+byte led1 = 6;
+byte led2 = 5;
 //int buttonPin = 2 NEXT MODE;
 //int buttonPin = 4 OFF;
-int val = 0, stope = 1;
+byte val = 0, stope = 1;
 long previousMillis = 0;
-int buttonState = 0;
+byte buttonState = 0;
 long interval = 300;
 
 byte gl_previous_mode = 1;
