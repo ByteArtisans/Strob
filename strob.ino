@@ -4,7 +4,6 @@ decode_results results;
 
 #define IR_RECEIVE_PIN 11
 
-// IRrecv irrecv(IR_RECEIVE_PIN);
 
 int led1 = 6;
 int led2 = 5;
@@ -16,15 +15,6 @@ int buttonState = 0;
 long interval = 300;
 
 byte gl_previous_mode = 1;
-
-
-
-struct Str {
-  
-  int val_i;
-  
-};
-
 
 
 void setup() {
@@ -421,32 +411,7 @@ void funk3() {
     Irrec_func();
     
   }
-  // // Перехід до плавного синхронного миготіння
-  // for (int brightness = 0; brightness <= 255; brightness += 5) {
-  //   analogWrite(led1, brightness);
-  //   analogWrite(led2, brightness);
-  //   delay(20);
-  // }
-
-  // for (int brightness = 255; brightness >= 0; brightness -= 5) {
-  //   analogWrite(led1, brightness);
-  //   analogWrite(led2, brightness);
-  //   delay(20);
-  // }
-
-  // // Синхронне миготіння
-  // for (int i = 0; i < 10; i++) {
-  //   digitalWrite(led1, HIGH);
-  //   digitalWrite(led2, HIGH);
-  //   delay(100);
-  //   digitalWrite(led1, LOW);
-  //   digitalWrite(led2, LOW);
-  //   delay(100);
-  // }
-
-  // Різке повернення до початкового стану
-  
-    
+   
     Irrec_func();
   }
   digitalWrite(led1, LOW);
