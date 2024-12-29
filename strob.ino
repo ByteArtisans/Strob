@@ -7,6 +7,8 @@ decode_results results;
 
 byte led1 = 6;
 byte led2 = 5;
+
+byte led3 = 9;
 //int buttonPin = 2 NEXT MODE;
 //int buttonPin = 4 OFF;
 byte val = 0, stope = 1;
@@ -17,6 +19,9 @@ long interval = 300;
 byte gl_previous_mode = 1;
 
 
+byte off_led_num = 10;
+
+
 void setup() {
   Serial.begin(9600); // // Establish serial communication
 
@@ -25,6 +30,7 @@ void setup() {
   //IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK); // Start the receiver
   pinMode(led1, OUTPUT);
   pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
   pinMode(13, OUTPUT);
   //pinMode (buttonPin, INPUT);
 
@@ -418,6 +424,19 @@ void funk3() {
   digitalWrite(led2, LOW);
 }
 
+void led_on(){
+  while (stope == 1) {
+      digitalWrite(led1, HIGH);
+      digitalWrite(led2, HIGH);
+      digitalWrite(led3, HIGH);
+
+    Irrec_func();
+  }
+  digitalWrite(led1, LOW);
+  digitalWrite(led2, LOW);
+  digitalWrite(led3, LOW);
+}
+
 
 void loop() {
 
@@ -440,7 +459,7 @@ void loop() {
       break;
     case 2:
       stope = 1;
-      two();
+      funk3();
       break;
     case 3:
       stope = 1;
@@ -463,21 +482,26 @@ void loop() {
       smooth3();
       break;
     case 8:
-    stope = 1;
-    funk3();
-    break;
+      stope = 1;
+      two();
+      break;
+    case 9:
+      stope = 1;
+      led_on();
+      break;
   }
 }
 void buttonPin() {
   static unsigned long millis_prev;
   if (millis() - 1000 > millis_prev) {
     stope = 1;
+    if (val == 0) val = (gl_previous_mode - 1);
     delay(50);
     val++;
     delay(50);
     stope = 0;
     // Serial.println(val);
-    if (val == 9) val = 0;
+    if (val == off_led_num) val = 0;
   }
   millis_prev = millis();
 }
@@ -485,13 +509,12 @@ void buttonPin() {
 void buttonPin2() {
   static unsigned long millis_prev2;
   if (millis() - 1000 > millis_prev2) {
+    if (val != 0) gl_previous_mode = val;
     stope = 1;
     delay(50);
     val = 0;
     delay(50);
     stope = 0;
-    // Serial.println(val);
-    if (val == 9) val = 0;
   }
   millis_prev2 = millis();
 }
@@ -539,22 +562,42 @@ void Irrec_func () {
         Serial.println(8);
         val = 8;
         stope = 0;
+      }else if ((IrReceiver.decodedIRData.decodedRawData) == 3108437760){
+        if (val != 9){
+          Serial.println(9);
+          val = 9;
+          stope = 0;
+        }else{
+          if (val != off_led_num){
+            gl_previous_mode = val;
+          }else if(val == 0){}
+          Serial.println(off_led_num);
+          val = off_led_num;
+          stope = 0;
+        }
+
       }
       
       
+
+
       else if ((IrReceiver.decodedIRData.decodedRawData) == 3091726080 || (IrReceiver.decodedIRData.decodedRawData) == 2790899456){
-        if (val != 9){
+        if (val != off_led_num){
         gl_previous_mode = val;
         }else if(val == 0){}
-        Serial.println(9);
-        val = 9;
+        Serial.println(off_led_num);
+        val = off_led_num;
         stope = 0;
+
+        // OFF
       }else if ((IrReceiver.decodedIRData.decodedRawData) == 3125149440 || (IrReceiver.decodedIRData.decodedRawData) == 250724096){
         
         delay(50);
         Serial.println(gl_previous_mode);
         val = gl_previous_mode;
         stope = 0;
+
+        // ON
       }
 
 
