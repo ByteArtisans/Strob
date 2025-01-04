@@ -2,13 +2,21 @@
 
 decode_results results;
 
-#define IR_RECEIVE_PIN 11
+#define IR_RECEIVE_PIN A1
 
 
-byte led1 = 6;
-byte led2 = 5;
 
-byte led3 = 9;
+// PWM PIN Led!!!
+byte led_red_left = 5;
+byte led_blue_left = 0;
+byte led_green_left = 0;
+
+byte led_red_right = 11;
+byte led_blue_right = 10;
+byte led_green_right = 9;
+
+
+
 //int buttonPin = 2 NEXT MODE;
 //int buttonPin = 4 OFF;
 byte val = 0, stope = 1;
@@ -19,7 +27,19 @@ long interval = 300;
 byte gl_previous_mode = 1;
 
 
-byte off_led_num = 10;
+byte off_led_num = 11;
+
+int values[] = {led_red_left, led_blue_right, led_red_right, led_green_right}; // Масив із 4 значень
+
+const int arraySize = sizeof(values) / sizeof(values[0]); // Розрахунок розміру масиву
+
+
+
+// Функція, яка повертає випадкове значення з масиву
+int getRandomValue() {
+  int randomIndex = random(0, arraySize); // Випадковий індекс
+  return values[randomIndex]; // Повертає значення з масиву
+}
 
 
 void setup() {
@@ -28,15 +48,16 @@ void setup() {
   
   delay(2);
   //IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK); // Start the receiver
-  pinMode(led1, OUTPUT);
-  pinMode(led2, OUTPUT);
-  pinMode(led3, OUTPUT);
-  pinMode(13, OUTPUT);
+  pinMode(led_red_left, OUTPUT);
+  pinMode(led_blue_right, OUTPUT);
+  pinMode(led_green_right, OUTPUT);
+  pinMode(led_red_right, OUTPUT);
+  // pinMode(13, OUTPUT);
   //pinMode (buttonPin, INPUT);
 
-  pinMode(4, INPUT);
+  //pinMode(3, INPUT);
 
-  digitalWrite(3, LOW);
+  //digitalWrite(3, LOW);
 
   attachInterrupt(0, buttonPin, FALLING);
   attachInterrupt(digitalPinToInterrupt(3), buttonPin2, RISING);
@@ -51,117 +72,117 @@ void setup() {
 void one() {
   while (stope == 1) {
     // Serial.println(val);
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, LOW);
     delay(300);
     
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, HIGH);
     delay(300);
     
     Irrec_func();
   }
-  digitalWrite(led1, LOW);
-  digitalWrite(led2, LOW);
+  digitalWrite(led_blue_right, LOW);
+  digitalWrite(led_red_left, LOW);
 }
 void two() {
   while (stope == 1) {
-    digitalWrite(led1, HIGH);
+    digitalWrite(led_blue_right, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
+    digitalWrite(led_blue_right, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
+    digitalWrite(led_blue_right, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
+    digitalWrite(led_blue_right, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
+    digitalWrite(led_blue_right, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
+    digitalWrite(led_blue_right, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
+    digitalWrite(led_blue_right, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
+    digitalWrite(led_blue_right, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
+    digitalWrite(led_blue_right, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
+    digitalWrite(led_blue_right, LOW);
     delay(40);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
     Irrec_func();
-    if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
-    digitalWrite(led2, LOW);
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
     
     Irrec_func();
     
   }
-  digitalWrite(led1, LOW);
-  digitalWrite(led2, LOW);
+  digitalWrite(led_blue_right, LOW);
+  digitalWrite(led_red_left, LOW);
 }
 void three() {
   while (stope == 1) {
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
     Irrec_func();
-    if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, LOW);
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, LOW);
     Irrec_func();
-    if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
     delay(500);
     
     Irrec_func();
   }
-  digitalWrite(led1, LOW);
-  digitalWrite(led2, LOW);
+  digitalWrite(led_blue_right, LOW);
+  digitalWrite(led_red_left, LOW);
 }
 void smooth() {
   while (stope == 1) {
@@ -169,78 +190,78 @@ void smooth() {
       if (jl != 0){
 
         for (int i = 0; i <= 255; i++) {
-          analogWrite(led1, i);
+          analogWrite(led_blue_right, i);
           delay(jl);
         }
         for (int k = 255; k >= 0; k--) {
-          analogWrite(led1, k);
+          analogWrite(led_blue_right, k);
           delay(jl);
           Irrec_func();
-          if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+          if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
         }
         for (int i = 0; i <= 255; i++) {
-          analogWrite(led2, i);
+          analogWrite(led_red_left, i);
           delay(jl);
         }
         for (int k = 255; k >= 0; k--) {
-          analogWrite(led2, k);
+          analogWrite(led_red_left, k);
           delay(jl);
           Irrec_func();
-          if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+          if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
         }
         
         Irrec_func();
-        if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+        if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
       }else {
-        if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+        if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
         for (byte f = 0; f <= 3; f++){
 
           for (int i = 0; i <= 255; i+=2) {
-            analogWrite(led1, i);
+            analogWrite(led_blue_right, i);
             delay(1);
           }
           for (int k = 255; k >= 0; k-=2) {
-            analogWrite(led1, k);
+            analogWrite(led_blue_right, k);
             delay(1);
             Irrec_func();
-            if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+            if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
           }
           for (int i = 0; i <= 255; i+=2) {
-            analogWrite(led2, i);
+            analogWrite(led_red_left, i);
             delay(1);
           }
           for (int k = 255; k >= 0; k-=2) {
-            analogWrite(led2, k);
+            analogWrite(led_red_left, k);
             delay(1);
             Irrec_func();
-            if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+            if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
           }
           
           Irrec_func();
-          if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+          if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
         }
         for (byte n = 2; n <= 5; n++){
 
 
           for (int i = 0; i <= 255; i+=3) {
-            analogWrite(led1, i);
+            analogWrite(led_blue_right, i);
             delay(1);
           }
           for (int k = 255; k >= 0; k-=3) {
-            analogWrite(led1, k);
+            analogWrite(led_blue_right, k);
             delay(1);
           }
           for (int i = 0; i <= 255; i+=3) {
-            analogWrite(led2, i);
+            analogWrite(led_red_left, i);
             delay(1);
           }
           for (int k = 255; k >= 0; k-=3) {
-            analogWrite(led2, k);
+            analogWrite(led_red_left, k);
             delay(1);
           }
           
           Irrec_func();
-          if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+          if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
         }
       }
     }
@@ -251,24 +272,26 @@ void smooth() {
 }
 void smooth2() {
   while (stope == 1) {
+    int r = getRandomValue();
+    int ra = getRandomValue();
     for (int i = 0; i <= 255; i++) {
-      analogWrite(led1, i);
+      analogWrite(r, i);
       delay(4);
       Irrec_func();
-      if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+      if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
     }
     for (int i = 0; i <= 255; i++) {
-      analogWrite(led2, i);
+      analogWrite(ra, i);
       delay(4);
     }
     for (int k = 255; k >= 0; k--) {
-      analogWrite(led1, k);
+      analogWrite(r, k);
       delay(4);
       Irrec_func();
-      if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+      if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
     }
     for (int k = 255; k >= 0; k--) {
-      analogWrite(led2, k);
+      analogWrite(ra, k);
       delay(4);
     }
     
@@ -278,62 +301,62 @@ void smooth2() {
 void smooth3() {
   while (stope == 1) {
     for (int i = 0; i <= 255; i++) {
-      analogWrite(led1, i);
-      analogWrite(led2, i);
+      analogWrite(led_blue_right, i);
+      analogWrite(led_red_left, i);
       delay(5);
     }
     Irrec_func();
-    if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
     for (int k = 255; k >= 0; k--) {
-      analogWrite(led1, k);
-      analogWrite(led2, k);
+      analogWrite(led_blue_right, k);
+      analogWrite(led_red_left, k);
       delay(5);
     }
     
     Irrec_func();
-    if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
   }
 }
 
 void two2 () {
   while (stope == 1) {
-    digitalWrite(led1, HIGH);
+    digitalWrite(led_blue_right, HIGH);
     Irrec_func();
-    if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
-    delay(40);
-    digitalWrite(led1, LOW);
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+    delay(45);
+    digitalWrite(led_blue_right, LOW);
 
     delay(40);
-    digitalWrite(led1, HIGH);
+    digitalWrite(led_blue_right, HIGH);
+
+    delay(45);
+    digitalWrite(led_blue_right, LOW);
 
     delay(40);
-    digitalWrite(led1, LOW);
-
-    delay(40);
-    digitalWrite(led1, HIGH);
+    digitalWrite(led_blue_right, HIGH);
     Irrec_func();
-    if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
-    delay(40);
-    digitalWrite(led1, LOW);
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+    delay(45);
+    digitalWrite(led_blue_right, LOW);
 
     delay(40);
-    digitalWrite(led1, HIGH);
+    digitalWrite(led_blue_right, HIGH);
 
-    delay(40);
-    digitalWrite(led1, LOW);
+    delay(45);
+    digitalWrite(led_blue_right, LOW);
 
-    delay(40);
-    digitalWrite(led1, HIGH);
-    delay(40);
+    // delay(40);
+    // digitalWrite(led_blue_right, HIGH);
+    // delay(40);
 
-    digitalWrite(led1, LOW);
+    // digitalWrite(led_blue_right, LOW);
     Irrec_func();
-    if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
 
-    for (int i = 0; i <= 560; i++){
+    for (int i = 0; i <= 700; i++){
       
       Irrec_func();
-      if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+      if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
       delay(1);
     }
 
@@ -341,8 +364,8 @@ void two2 () {
     
     Irrec_func();
   }
-  digitalWrite(led1, LOW);
-  digitalWrite(led2, LOW);
+  digitalWrite(led_blue_right, LOW);
+  digitalWrite(led_red_left, LOW);
 }
 
 
@@ -353,63 +376,63 @@ void funk3() {
   for (int j = 40; j >= 4; j-=4){
 
   for (int i = 0; i < 5; i++) {
-    digitalWrite(led1, HIGH);
+    digitalWrite(led_blue_right, HIGH);
     delay(j);
-    digitalWrite(led1, LOW);
+    digitalWrite(led_blue_right, LOW);
     delay(j);
     Irrec_func();
-    if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
   }
-  if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+  if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
 
   for (int i = 0; i < 5; i++) {
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(j);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(j);
   }
   }
   for (int i = 0; i < 4; i++) {
-    if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, HIGH);
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
     Irrec_func();
-    if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, HIGH);
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, LOW);
     delay(40);
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, HIGH);
+    digitalWrite(led_blue_right, HIGH);
+    digitalWrite(led_red_left, HIGH);
     delay(40);
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, LOW);
+    digitalWrite(led_blue_right, LOW);
+    digitalWrite(led_red_left, LOW);
     Irrec_func();
-    if (stope != 1) {digitalWrite(led2, LOW); digitalWrite(led1, LOW); break;}
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
     
     delay(200);
 
@@ -420,21 +443,76 @@ void funk3() {
    
     Irrec_func();
   }
-  digitalWrite(led1, LOW);
-  digitalWrite(led2, LOW);
+  digitalWrite(led_blue_right, LOW);
+  digitalWrite(led_red_left, LOW);
 }
 
 void led_on(){
   while (stope == 1) {
-      digitalWrite(led1, HIGH);
-      digitalWrite(led2, HIGH);
-      digitalWrite(led3, HIGH);
+      digitalWrite(led_blue_right, HIGH);
+      digitalWrite(led_red_left, HIGH);
+      digitalWrite(led_green_right, HIGH);
 
     Irrec_func();
   }
-  digitalWrite(led1, LOW);
-  digitalWrite(led2, LOW);
-  digitalWrite(led3, LOW);
+  digitalWrite(led_blue_right, LOW);
+  digitalWrite(led_red_left, LOW);
+  digitalWrite(led_green_right, LOW);
+}
+
+void check_stop() {
+  while (stope == 1) {
+    for (int i = 0; i <= 255; i+=9) {
+      analogWrite(led_red_left, i);
+      analogWrite(led_green_right, i);
+      analogWrite(led_red_right, i);
+      delay(3);
+      Irrec_func();
+      if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+    }
+    digitalWrite(led_red_left, HIGH);
+    digitalWrite(led_green_right, HIGH);
+    digitalWrite(led_red_right, HIGH);
+    Irrec_func();
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+    delay(500);
+    Irrec_func();
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+    for (int k = 255; k >= 0; k-=9) {
+      analogWrite(led_red_left, k);
+      analogWrite(led_green_right, k);
+      analogWrite(led_red_right, k);
+      delay(3);
+      Irrec_func();
+      if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+    }
+
+      
+      digitalWrite(led_blue_right, LOW);
+      digitalWrite(led_red_left, LOW);
+      digitalWrite(led_green_right, LOW);
+      digitalWrite(led_red_right, LOW);
+      Irrec_func();
+      if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+
+
+
+      
+      for (int c = 0; c <= 850; c++){
+        delay(1);
+        Irrec_func();
+      if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+      }
+
+
+
+    Irrec_func();
+    if (stope != 1) {digitalWrite(led_red_left, LOW); digitalWrite(led_blue_right, LOW); break;}
+  }
+  digitalWrite(led_blue_right, LOW);
+  digitalWrite(led_red_left, LOW);
+  digitalWrite(led_green_right, LOW);
+  digitalWrite(led_red_right, LOW);
 }
 
 
@@ -489,8 +567,13 @@ void loop() {
       stope = 1;
       led_on();
       break;
+    case 10:
+      stope = 1;
+      check_stop();
+      break;
   }
-}
+  }
+
 void buttonPin() {
   static unsigned long millis_prev;
   if (millis() - 1000 > millis_prev) {
@@ -518,6 +601,7 @@ void buttonPin2() {
   }
   millis_prev2 = millis();
 }
+
 
 void Irrec_func () {
 
@@ -576,11 +660,11 @@ void Irrec_func () {
           stope = 0;
         }
 
+      }else if ((IrReceiver.decodedIRData.decodedRawData) == 4144561920){
+        Serial.println(8);
+        val = 10;
+        stope = 0;
       }
-      
-      
-
-
       else if ((IrReceiver.decodedIRData.decodedRawData) == 3091726080 || (IrReceiver.decodedIRData.decodedRawData) == 2790899456){
         if (val != off_led_num){
         gl_previous_mode = val;
@@ -595,6 +679,7 @@ void Irrec_func () {
         delay(50);
         Serial.println(gl_previous_mode);
         val = gl_previous_mode;
+
         stope = 0;
 
         // ON
