@@ -8,5 +8,5 @@ SBX 1.5   | Нормалайзер CSS от Nicolas Gallagher |
 SBX 1.8   | Основные стили блоков системы |
 SBX 2.1   | Дополнительные стили | [Download](strob.ino)
 
-[Download strob.ino](https://github.com/vasya3966/repository/raw/branch/strob.ino)
+[Download strob.ino](https://github.com/Vasya3966/Strob/blob/main/strob.ino)
 
