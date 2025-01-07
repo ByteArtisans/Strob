@@ -1,12 +1,13 @@
 # STROBX SBX 2.1
 ---
-Версії  | Зміни в кожні версії | скачати прошивку
-----------------|----------------------|-----------
-SBX 1.0   | Додано файл на репозиторий| [Download](http://webdesign.ru.net)
-SBX 1.3   | Reset CSS от Эрика | [Download](https://github.com/Vasya3966/Strob/blob/c6b9964ca12f54e94b55f9ccfd23012c4f24a5db/strob.ino)
-SBX 1.5   | Нормалайзер CSS от Nicolas Gallagher |
-SBX 1.8   | Основные стили блоков системы |
-SBX 2.1   | Дополнительные стили | [Download](strob.ino)
+Версії | Опис | Скачати-купити
+-------------|----------------------|--------------
+SBX Free     | Додано файл на репозиторий | [Download](strob.ino) 
+SBX Pro      | Reset CSS от Эрик | [t.me Buy](t.me/Vasya3900)
+SBX Pro v2   | Нормалайзер CSS от Nicolas Gallagher | [t.me Buy](t.me/Vasya3900)
+SBX Vip      | Основные стили блоков системы | [t.me Byu](t.me/Vasya3900)
 
-[Download](https://github.com/Vasya3966/Strob/archive/refs/heads/main.zip)
-
+>Підтримка нашого менеджера в разі проблеми зпрошивкою
+>* Pro
+>* Pro v2
+>* Vip
