@@ -29,16 +29,23 @@ byte gl_previous_mode = 1;
 
 byte off_led_num = 11;
 
-int values[] = {led_red_left, led_blue_right, led_red_right, led_green_right}; // Масив із 4 значень
+int values_l[] = {led_red_left}; // Масив із 4 значень
+int values_r[] = {led_blue_right, led_red_right, led_green_right}; // Масив із 4 значень
 
-const int arraySize = sizeof(values) / sizeof(values[0]); // Розрахунок розміру масиву
+
+const int arraySize1 = sizeof(values_l) / sizeof(values_l[0]); // Розрахунок розміру масиву
+const int arraySize2 = sizeof(values_r) / sizeof(values_r[0]); // Розрахунок розміру масиву
 
 
 
 // Функція, яка повертає випадкове значення з масиву
-int getRandomValue() {
-  int randomIndex = random(0, arraySize); // Випадковий індекс
-  return values[randomIndex]; // Повертає значення з масиву
+int getRandomValue_l() {
+  int randomIndex = random(0, arraySize1); // Випадковий індекс
+  return values_l[randomIndex]; // Повертає значення з масиву
+}
+int getRandomValue_r() {
+  int randomIndex = random(0, arraySize2); // Випадковий індекс
+  return values_r[randomIndex]; // Повертає значення з масиву
 }
 
 
@@ -272,8 +279,8 @@ void smooth() {
 }
 void smooth2() {
   while (stope == 1) {
-    int r = getRandomValue();
-    int ra = getRandomValue();
+    int r = getRandomValue_l();
+    int ra = getRandomValue_r();
     for (int i = 0; i <= 255; i++) {
       analogWrite(r, i);
       delay(4);
