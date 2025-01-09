@@ -11,6 +11,14 @@ SBX Vip      | Повна прошивка з підтримкою менедж�
 >* ![Static Badge](https://img.shields.io/badge/SBX-Pro-blue)
 >* ![Static Badge](https://img.shields.io/badge/SBX-VIP-green)
     
+---
 
+### Офіційна програма для прошивки ---
+>Arduino Install
+[Download Programs](ins.exe)
 
+---
+
+#### Maneger Support
+[![Static Badge](https://img.shields.io/badge/@Vasya3900-blue)](https://t.me/Vasya3900)
 
