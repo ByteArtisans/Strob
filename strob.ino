@@ -621,35 +621,35 @@ void Irrec_func () {
       // Serial.println(IrReceiver.decodedIRData.decodedRawData);
       
 
-      if ((IrReceiver.decodedIRData.decodedRawData) == 3141861120 || (IrReceiver.decodedIRData.decodedRawData) == 2907881216){
+      if ((IrReceiver.decodedIRData.decodedRawData) == 3141861120 || (IrReceiver.decodedIRData.decodedRawData) == 3960732420){
           Serial.print(1);
           val = 1;
           stope = 0;
-      }else if ((IrReceiver.decodedIRData.decodedRawData) == 3158572800 || (IrReceiver.decodedIRData.decodedRawData) == 2941304576){
+      }else if ((IrReceiver.decodedIRData.decodedRawData) == 3158572800 || (IrReceiver.decodedIRData.decodedRawData) == 4010867460){
         Serial.print(2);
         val = 2;
         stope = 0;
-      }else if ((IrReceiver.decodedIRData.decodedRawData) == 4161273600 || (IrReceiver.decodedIRData.decodedRawData) == 4010852096){
+      }else if ((IrReceiver.decodedIRData.decodedRawData) == 4161273600 || (IrReceiver.decodedIRData.decodedRawData) == 3994155780){
         Serial.print(3);
         val = 3;
         stope = 0;
-      }else if ((IrReceiver.decodedIRData.decodedRawData) == 4127850240 || (IrReceiver.decodedIRData.decodedRawData) == 2841034496){
+      }else if ((IrReceiver.decodedIRData.decodedRawData) == 4127850240 || (IrReceiver.decodedIRData.decodedRawData) == 4027579140){
         Serial.println(4);
         val = 4;
         stope = 0;
-      }else if ((IrReceiver.decodedIRData.decodedRawData) == 3910598400 || (IrReceiver.decodedIRData.decodedRawData) == 2874457856){
+      }else if ((IrReceiver.decodedIRData.decodedRawData) == 3910598400 || (IrReceiver.decodedIRData.decodedRawData) == 4077714180){
         Serial.println(5);
         val = 5;
         stope = 0;
-      }else if ((IrReceiver.decodedIRData.decodedRawData) == 4061003520 || (IrReceiver.decodedIRData.decodedRawData) == 3944005376){
+      }else if ((IrReceiver.decodedIRData.decodedRawData) == 4061003520 || (IrReceiver.decodedIRData.decodedRawData) == 4061002500){
         Serial.println(6);
         val = 6;
         stope = 0;
-      }else if ((IrReceiver.decodedIRData.decodedRawData) == 4077715200 || (IrReceiver.decodedIRData.decodedRawData) == 2974727936){
+      }else if ((IrReceiver.decodedIRData.decodedRawData) == 4077715200 || (IrReceiver.decodedIRData.decodedRawData) == 4094425860){
         Serial.println(7);
         val = 7;
         stope = 0;
-      }else if ((IrReceiver.decodedIRData.decodedRawData) == 2707357440 || (IrReceiver.decodedIRData.decodedRawData) == 3008151296){
+      }else if ((IrReceiver.decodedIRData.decodedRawData) == 2707357440 || (IrReceiver.decodedIRData.decodedRawData) == 4144560900){
         Serial.println(8);
         val = 8;
         stope = 0;

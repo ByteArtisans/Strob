@@ -1,4 +1,4 @@
-# STROBX SBX 2.1
+# STROBX SBX 2.1 <sup style="color:brown;">beta</sup>
 ---
 Версії | Опис | Ціна | Скачати-купити
 -------------|----------------------|-------|------
@@ -11,6 +11,9 @@ SBX Vip      | Повна прошивка з підтримкою менедж�
 >* ![Static Badge](https://img.shields.io/badge/SBX-Pro-blue)
 >* ![Static Badge](https://img.shields.io/badge/SBX-VIP-green)
     
+**Claim Free (Pro or Vip) ->** [Bot Telegram]()
+Started tg bot - 2025.02.15
+
 ---
 
 ### Офіційна програма для прошивки ---
