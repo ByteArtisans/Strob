@@ -591,7 +591,7 @@ void buttonPin() {
     delay(50);
     stope = 0;
     // Serial.println(val);
-    if (val == off_led_num) val = 0;
+    if (val >= off_led_num) val = 1;
   }
   millis_prev = millis();
 }
