@@ -5,6 +5,7 @@ import random
 import string
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QFileDialog, QMessageBox, QLineEdit, QSpinBox
+from PyQt5.QtGui import QColor
 
 class ArduinoHasherApp(QtWidgets.QMainWindow):
     def __init__(self):
@@ -19,10 +20,11 @@ class ArduinoHasherApp(QtWidgets.QMainWindow):
         self.layout.addWidget(self.file_label)
 
         self.select_file_button = QtWidgets.QPushButton("Вибрати INO файл")
+        self.select_file_button.setStyleSheet("background-color: #4CAF50; color: white; font-weight: bold;")
         self.select_file_button.clicked.connect(self.select_file)
         self.layout.addWidget(self.select_file_button)
 
-        self.password_label = QtWidgets.QLabel("Пароль для хешу:")
+        self.password_label = QtWidgets.QLabel("Пароль для шифрування:")
         self.layout.addWidget(self.password_label)
 
         self.password_input = QLineEdit()
@@ -39,13 +41,20 @@ class ArduinoHasherApp(QtWidgets.QMainWindow):
         self.layout.addWidget(self.password_length_spinbox)
 
         self.generate_password_button = QtWidgets.QPushButton("Згенерувати пароль")
+        self.generate_password_button.setStyleSheet("background-color: #2196F3; color: white; font-weight: bold;")
         self.generate_password_button.clicked.connect(self.generate_password)
         self.layout.addWidget(self.generate_password_button)
 
-        self.hash_button = QtWidgets.QPushButton("Згенерувати хеш та скомпілювати")
-        self.hash_button.clicked.connect(self.generate_hash_and_compile)
-        self.hash_button.setEnabled(False)
-        self.layout.addWidget(self.hash_button)
+        self.standard_password_button = QtWidgets.QPushButton("Вставити стандартний пароль")
+        self.standard_password_button.setStyleSheet("background-color: #FF5722; color: white; font-weight: bold;")
+        self.standard_password_button.clicked.connect(self.insert_standard_password)
+        self.layout.addWidget(self.standard_password_button)
+
+        self.encrypt_button = QtWidgets.QPushButton("Зашифрувати файл")
+        self.encrypt_button.setStyleSheet("background-color: #9C27B0; color: white; font-weight: bold;")
+        self.encrypt_button.clicked.connect(self.encrypt_file)
+        self.encrypt_button.setEnabled(False)
+        self.layout.addWidget(self.encrypt_button)
 
         self.output_text = QtWidgets.QTextEdit()
         self.output_text.setReadOnly(True)
@@ -56,9 +65,8 @@ class ArduinoHasherApp(QtWidgets.QMainWindow):
         central_widget.setLayout(self.layout)
         self.setCentralWidget(central_widget)
 
-        # File path and Arduino CLI
+        # File path
         self.file_path = None
-        self.arduino_cli_path = "arduino-cli"  # Ensure arduino-cli is installed and in PATH
 
     def select_file(self):
         file_dialog = QFileDialog()
@@ -66,7 +74,7 @@ class ArduinoHasherApp(QtWidgets.QMainWindow):
         if file_path:
             self.file_path = file_path
             self.file_label.setText(f"Вибраний файл: {os.path.basename(file_path)}")
-            self.hash_button.setEnabled(True)
+            self.encrypt_button.setEnabled(True)
 
     def generate_password(self):
         # Get password length from the spinbox
@@ -78,66 +86,40 @@ class ArduinoHasherApp(QtWidgets.QMainWindow):
         # Set the generated password to the password input field
         self.password_input.setText(password)
 
-    def generate_hash_and_compile(self):
+    def insert_standard_password(self):
+        standard_password = "aXG2E6eLxzEE"
+        self.password_input.setText(standard_password)
+
+    def encrypt_file(self):
         if not self.file_path:
-            QMessageBox.critical(self, "Помилка", "Будь ласка, виберіть файл перед хешуванням.")
+            QMessageBox.critical(self, "Помилка", "Будь ласка, виберіть файл перед шифруванням.")
             return
 
-        # Get the password for the hash (if any)
         password = self.password_input.text()
+        if not password:
+            QMessageBox.critical(self, "Помилка", "Будь ласка, введіть пароль для шифрування.")
+            return
 
         try:
-            hasher = hashlib.sha256()
             with open(self.file_path, "rb") as file:
-                while chunk := file.read(8192):
-                    hasher.update(chunk)
+                data = file.read()
 
-            # Append password to the hash if provided
-            if password:
-                hasher.update(password.encode('utf-8'))
+            hashed_password = hashlib.sha256(password.encode()).digest()
+            encrypted_data = bytes(b ^ hashed_password[i % len(hashed_password)] for i, b in enumerate(data))
 
-            hash_value = hasher.hexdigest()
-
-            # Let the user select where to save the hash file
-            hash_file_path, _ = QFileDialog.getSaveFileName(self, "Зберегти хеш файл", os.path.splitext(self.file_path)[0] + ".sha256", "SHA256 Files (*.sha256)")
-            if not hash_file_path:
+            # Save encrypted file
+            encrypted_file_path, _ = QFileDialog.getSaveFileName(self, "Зберегти зашифрований файл", os.path.splitext(self.file_path)[0] + ".hash", "Hash Files (*.hash)")
+            if not encrypted_file_path:
                 return
 
-            with open(hash_file_path, "w") as hash_file:
-                hash_file.write(hash_value)
+            with open(encrypted_file_path, "wb") as encrypted_file:
+                encrypted_file.write(encrypted_data)
 
-            self.output_text.append(f"Хеш згенеровано: {hash_value}")
-            self.output_text.append(f"Збережено у файл: {hash_file_path}\n")
-
-            # Automatically compile the file after generating the hash
-            self.compile_file()
+            self.output_text.append(f"Файл успішно зашифровано та збережено у: {encrypted_file_path}")
+            self.output_text.append(f"Пароль для розшифрування: {password}\n")
 
         except Exception as e:
-            QMessageBox.critical(self, "Помилка", f"Помилка під час хешування: {e}")
-
-    def compile_file(self):
-        if not self.file_path:
-            QMessageBox.critical(self, "Помилка", "Будь ласка, виберіть файл перед компіляцією.")
-            return
-
-        try:
-            project_folder = os.path.dirname(self.file_path)
-            os.chdir(project_folder)
-
-            # Run Arduino CLI compile command
-            fqbn = "arduino:avr:uno"  # Default board, customizable
-            compile_command = [self.arduino_cli_path, "compile", "--fqbn", fqbn, self.file_path]
-            result = subprocess.run(compile_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-
-            if result.returncode == 0:
-                self.output_text.append("Файл успішно скомпільовано!")
-                self.output_text.append(result.stdout)
-            else:
-                self.output_text.append("Помилка компіляції:")
-                self.output_text.append(result.stderr)
-
-        except Exception as e:
-            QMessageBox.critical(self, "Помилка", f"Помилка під час компіляції: {e}")
+            QMessageBox.critical(self, "Помилка", f"Помилка під час шифрування: {e}")
 
 if __name__ == "__main__":
     import sys
