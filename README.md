@@ -1,5 +1,6 @@
 # STROBX SBX 2.1 <sup style="color:brown;">beta</sup>
 ---
+<!-- 
 Версії | Опис | Ціна | Скачати-купити
 -------------|----------------------|-------|------
 SBX Free     | Безплатна спрощенна версія | 0$ | [Download](strob.zip)
@@ -22,6 +23,8 @@ Started tg bot - 2025.02.15
 [Download Programs](ins.exe)
 
 ---
+
+-->
 
 #### Maneger Support
 [![Static Badge](https://img.shields.io/badge/@Vasya3900-blue)](https://t.me/Vasya3900)
