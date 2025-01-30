@@ -4,6 +4,7 @@ import subprocess
 import shutil
 import hashlib
 from colorama import Fore, Style, init
+from termcolor import colored, cprint
 from tkinter import filedialog, Tk
 from pyfiglet import figlet_format
 
@@ -42,7 +43,7 @@ def select_port():
     while True:
         ports = list_ports()
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(Fore.CYAN + figlet_format("Strob" + " " + Fore.GREEN + "Flasher"))
+        print(Fore.CYAN + figlet_format("Strob"))
         if not ports:
             print(Fore.YELLOW + "[Увага] Порти не знайдено.")
         else:
@@ -222,7 +223,8 @@ def flash_arduino(ino_file, port, board_name, processor):
 def main():
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(Fore.CYAN + figlet_format("Strob"))
+        # print(Fore.CYAN + figlet_format("Strob"))
+        print((colored(figlet_format("Strob"), color="blue")))
         print(Fore.CYAN + "1. Вибрати INO файл")
         print(Fore.CYAN + "2. Розхешувати файл")
         print(Fore.CYAN + "0. Вийти")
