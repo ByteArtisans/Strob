@@ -2,20 +2,36 @@ import os
 import sys
 import subprocess
 import shutil
-import hashlib
+
+# Перевірка та встановлення необхідних бібліотек
+REQUIRED_LIBRARIES = [
+    "colorama",
+    "tk",
+    "pyfiglet"
+]
+
+def install_libraries():
+    for lib in REQUIRED_LIBRARIES:
+        try:
+            __import__(lib)
+        except ImportError:
+            print(f"[Інформація] Встановлення бібліотеки {lib}...")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", lib])
+            
+install_libraries()
+
+# Імпорт після встановлення
 from colorama import Fore, Style, init
-from termcolor import colored, cprint
 from tkinter import filedialog, Tk
 from pyfiglet import figlet_format
 
 # Ініціалізація colorama
 init(autoreset=True)
 
-
 # Фіксований пароль для розхешовування
 HASH_PASSWORD = "aXG2E6eLxzEE"
 
-# Перевірка залежностей
+# Перевірка наявності Arduino CLI
 def check_dependencies():
     if shutil.which("arduino-cli") is None:
         print(Fore.RED + "[Помилка] Arduino CLI не знайдено. Будь ласка, встановіть Arduino CLI.")
@@ -74,7 +90,7 @@ def select_board():
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(Fore.CYAN + figlet_format("Strob"))
+        print(Fore.YELLOW + figlet_format("Strob"))
         print(Fore.CYAN + "Доступні плати:")
         for key, name in boards.items():
             print(f"  {key}. {name}")
@@ -98,7 +114,7 @@ def select_processor():
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(Fore.CYAN + figlet_format("Strob"))
+        print(Fore.YELLOW + figlet_format("Strob"))
         print(Fore.CYAN + "Доступні процесори:")
         for key, name in processors.items():
             print(f"  {key}. {name}")
@@ -115,7 +131,7 @@ def select_processor():
 # Вибір файлу INO
 def select_file():
     os.system('cls' if os.name == 'nt' else 'clear')
-    print(Fore.CYAN + figlet_format("Strob"))
+    print(Fore.YELLOW + figlet_format("Strob"))
     print(Fore.CYAN + "Будь ласка, виберіть INO файл.")
     root = Tk()
     root.withdraw()
@@ -128,7 +144,7 @@ def select_file():
 # Вибір хешованого файлу
 def select_hashed_file():
     os.system('cls' if os.name == 'nt' else 'clear')
-    print(Fore.CYAN + figlet_format("Strob"))
+    print(Fore.YELLOW + figlet_format("Strob"))
     print(Fore.CYAN + "Будь ласка, виберіть хешований файл.")
     root = Tk()
     root.withdraw()
@@ -223,8 +239,7 @@ def flash_arduino(ino_file, port, board_name, processor):
 def main():
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
-        # print(Fore.CYAN + figlet_format("Strob"))
-        print((colored(figlet_format("Strob"), color="blue")))
+        print(Fore.YELLOW + figlet_format("Strob"))
         print(Fore.CYAN + "1. Вибрати INO файл")
         print(Fore.CYAN + "2. Розхешувати файл")
         print(Fore.CYAN + "0. Вийти")
