@@ -1,6 +1,6 @@
 # STROBX SBX 2.4 <sup style="color:brown;">beta</sup>
 ---
-
+<!
 Версії | Опис | Ціна | Скачати-купити
 -------------|----------------------|-------|------
 SBX Free     | Безплатна спрощенна версія | 0$ | [Download](strob.zip)
@@ -13,7 +13,7 @@ SBX Max      | Повна прошивка з підтримкою менедж�
 >* ![Static Badge](https://img.shields.io/badge/SBX-VIP-green)
 
 ---
-
+/>
 ## Arduino Flasher
 >Version:
 >* Conlole - консольна програма покращена ![Static Badge](https://img.shields.io/badge/Recomended-blue)
